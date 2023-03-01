@@ -1,0 +1,11 @@
+C:\Users\gnogu\OneDrive\Documentos\Projetos Pessoais\C#\File Organizer\FileOrganizer\FileOrganizer\bin\Debug\FileOrganizer.exe.config
+C:\Users\gnogu\OneDrive\Documentos\Projetos Pessoais\C#\File Organizer\FileOrganizer\FileOrganizer\bin\Debug\FileOrganizer.exe
+C:\Users\gnogu\OneDrive\Documentos\Projetos Pessoais\C#\File Organizer\FileOrganizer\FileOrganizer\bin\Debug\FileOrganizer.pdb
+C:\Users\gnogu\OneDrive\Documentos\Projetos Pessoais\C#\File Organizer\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.csproj.AssemblyReference.cache
+C:\Users\gnogu\OneDrive\Documentos\Projetos Pessoais\C#\File Organizer\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.csproj.SuggestedBindingRedirects.cache
+C:\Users\gnogu\OneDrive\Documentos\Projetos Pessoais\C#\File Organizer\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.frm_OrganizeWindow.resources
+C:\Users\gnogu\OneDrive\Documentos\Projetos Pessoais\C#\File Organizer\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.Properties.Resources.resources
+C:\Users\gnogu\OneDrive\Documentos\Projetos Pessoais\C#\File Organizer\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.csproj.GenerateResource.cache
+C:\Users\gnogu\OneDrive\Documentos\Projetos Pessoais\C#\File Organizer\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.csproj.CoreCompileInputs.cache
+C:\Users\gnogu\OneDrive\Documentos\Projetos Pessoais\C#\File Organizer\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.exe
+C:\Users\gnogu\OneDrive\Documentos\Projetos Pessoais\C#\File Organizer\FileOrganizer\FileOrganizer\obj\Debug\FileOrganizer.pdb
