@@ -40,7 +40,6 @@
             this.ckb_SaveSameOrganize = new System.Windows.Forms.CheckBox();
             this.btn_ListFiles = new System.Windows.Forms.Button();
             this.lst_Files = new System.Windows.Forms.ListBox();
-            this.lbl_Extensions = new System.Windows.Forms.Label();
             this.ckb_Jpeg = new System.Windows.Forms.CheckBox();
             this.ckb_PNG = new System.Windows.Forms.CheckBox();
             this.ckb_BMP = new System.Windows.Forms.CheckBox();
@@ -74,12 +73,23 @@
             this.ckb_All = new System.Windows.Forms.CheckBox();
             this.cmb_MoveCopy = new System.Windows.Forms.ComboBox();
             this.lbl_MoveCopy = new System.Windows.Forms.Label();
+            this.lst_FoldersNotIncluded = new System.Windows.Forms.ListBox();
+            this.gbExtensions = new System.Windows.Forms.GroupBox();
+            this.lst_FoldersIncluded = new System.Windows.Forms.ListBox();
+            this.gbFolderOrganization = new System.Windows.Forms.GroupBox();
+            this.ckb_CreateFileOrganizerFolder = new System.Windows.Forms.CheckBox();
+            this.btn_DownFolder = new System.Windows.Forms.Button();
+            this.btn_UpFolder = new System.Windows.Forms.Button();
+            this.btn_RemoveExtension = new System.Windows.Forms.Button();
+            this.btn_AddExtension = new System.Windows.Forms.Button();
+            this.gbExtensions.SuspendLayout();
+            this.gbFolderOrganization.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_Organize
             // 
             this.btn_Organize.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Organize.Location = new System.Drawing.Point(280, 505);
+            this.btn_Organize.Location = new System.Drawing.Point(280, 638);
             this.btn_Organize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btn_Organize.Name = "btn_Organize";
             this.btn_Organize.Size = new System.Drawing.Size(88, 23);
@@ -91,7 +101,7 @@
             // btn_Close
             // 
             this.btn_Close.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Close.Location = new System.Drawing.Point(374, 505);
+            this.btn_Close.Location = new System.Drawing.Point(376, 638);
             this.btn_Close.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(88, 23);
@@ -133,7 +143,6 @@
             this.lbl_PathIn.Size = new System.Drawing.Size(113, 15);
             this.lbl_PathIn.TabIndex = 4;
             this.lbl_PathIn.Text = "Folder to Organize:";
-            this.lbl_PathIn.Click += new System.EventHandler(this.lbl_PathIn_Click);
             // 
             // lbl_PathSave
             // 
@@ -185,42 +194,30 @@
             // btn_ListFiles
             // 
             this.btn_ListFiles.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_ListFiles.Location = new System.Drawing.Point(12, 505);
+            this.btn_ListFiles.Location = new System.Drawing.Point(12, 638);
             this.btn_ListFiles.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btn_ListFiles.Name = "btn_ListFiles";
             this.btn_ListFiles.Size = new System.Drawing.Size(88, 23);
             this.btn_ListFiles.TabIndex = 10;
             this.btn_ListFiles.Text = "List Files";
             this.btn_ListFiles.UseVisualStyleBackColor = true;
-            this.btn_ListFiles.Click += new System.EventHandler(this.button1_Click);
+            this.btn_ListFiles.Click += new System.EventHandler(this.btn_ListFiles_Click);
             // 
             // lst_Files
             // 
             this.lst_Files.ForeColor = System.Drawing.SystemColors.GrayText;
             this.lst_Files.FormattingEnabled = true;
-            this.lst_Files.Location = new System.Drawing.Point(12, 335);
+            this.lst_Files.Location = new System.Drawing.Point(12, 485);
             this.lst_Files.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lst_Files.Name = "lst_Files";
-            this.lst_Files.Size = new System.Drawing.Size(452, 160);
+            this.lst_Files.Size = new System.Drawing.Size(452, 147);
             this.lst_Files.TabIndex = 11;
-            // 
-            // lbl_Extensions
-            // 
-            this.lbl_Extensions.AutoSize = true;
-            this.lbl_Extensions.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Extensions.Location = new System.Drawing.Point(12, 172);
-            this.lbl_Extensions.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbl_Extensions.Name = "lbl_Extensions";
-            this.lbl_Extensions.Size = new System.Drawing.Size(137, 15);
-            this.lbl_Extensions.TabIndex = 12;
-            this.lbl_Extensions.Text = "Extensions to Organize:";
-            this.lbl_Extensions.Click += new System.EventHandler(this.lbl_Extensions_Click);
             // 
             // ckb_Jpeg
             // 
             this.ckb_Jpeg.AutoSize = true;
             this.ckb_Jpeg.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Jpeg.Location = new System.Drawing.Point(15, 210);
+            this.ckb_Jpeg.Location = new System.Drawing.Point(7, 47);
             this.ckb_Jpeg.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Jpeg.Name = "ckb_Jpeg";
             this.ckb_Jpeg.Size = new System.Drawing.Size(49, 17);
@@ -232,20 +229,19 @@
             // 
             this.ckb_PNG.AutoSize = true;
             this.ckb_PNG.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_PNG.Location = new System.Drawing.Point(15, 233);
+            this.ckb_PNG.Location = new System.Drawing.Point(7, 70);
             this.ckb_PNG.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_PNG.Name = "ckb_PNG";
             this.ckb_PNG.Size = new System.Drawing.Size(47, 17);
             this.ckb_PNG.TabIndex = 14;
             this.ckb_PNG.Text = "PNG";
             this.ckb_PNG.UseVisualStyleBackColor = true;
-            this.ckb_PNG.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
             // 
             // ckb_BMP
             // 
             this.ckb_BMP.AutoSize = true;
             this.ckb_BMP.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_BMP.Location = new System.Drawing.Point(15, 256);
+            this.ckb_BMP.Location = new System.Drawing.Point(7, 93);
             this.ckb_BMP.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_BMP.Name = "ckb_BMP";
             this.ckb_BMP.Size = new System.Drawing.Size(48, 17);
@@ -257,7 +253,7 @@
             // 
             this.ckb_Dng.AutoSize = true;
             this.ckb_Dng.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Dng.Location = new System.Drawing.Point(15, 279);
+            this.ckb_Dng.Location = new System.Drawing.Point(7, 116);
             this.ckb_Dng.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Dng.Name = "ckb_Dng";
             this.ckb_Dng.Size = new System.Drawing.Size(49, 17);
@@ -269,7 +265,7 @@
             // 
             this.ckb_Raw.AutoSize = true;
             this.ckb_Raw.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Raw.Location = new System.Drawing.Point(15, 302);
+            this.ckb_Raw.Location = new System.Drawing.Point(7, 139);
             this.ckb_Raw.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Raw.Name = "ckb_Raw";
             this.ckb_Raw.Size = new System.Drawing.Size(49, 17);
@@ -281,7 +277,7 @@
             // 
             this.ckb_Mp3.AutoSize = true;
             this.ckb_Mp3.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Mp3.Location = new System.Drawing.Point(97, 210);
+            this.ckb_Mp3.Location = new System.Drawing.Point(74, 47);
             this.ckb_Mp3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Mp3.Name = "ckb_Mp3";
             this.ckb_Mp3.Size = new System.Drawing.Size(48, 17);
@@ -293,7 +289,7 @@
             // 
             this.ckb_Wma.AutoSize = true;
             this.ckb_Wma.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Wma.Location = new System.Drawing.Point(97, 233);
+            this.ckb_Wma.Location = new System.Drawing.Point(74, 70);
             this.ckb_Wma.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Wma.Name = "ckb_Wma";
             this.ckb_Wma.Size = new System.Drawing.Size(53, 17);
@@ -305,7 +301,7 @@
             // 
             this.ckb_Wav.AutoSize = true;
             this.ckb_Wav.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Wav.Location = new System.Drawing.Point(97, 256);
+            this.ckb_Wav.Location = new System.Drawing.Point(74, 93);
             this.ckb_Wav.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Wav.Name = "ckb_Wav";
             this.ckb_Wav.Size = new System.Drawing.Size(49, 17);
@@ -317,7 +313,7 @@
             // 
             this.ckb_Mpa.AutoSize = true;
             this.ckb_Mpa.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Mpa.Location = new System.Drawing.Point(97, 279);
+            this.ckb_Mpa.Location = new System.Drawing.Point(74, 116);
             this.ckb_Mpa.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Mpa.Name = "ckb_Mpa";
             this.ckb_Mpa.Size = new System.Drawing.Size(48, 17);
@@ -329,7 +325,7 @@
             // 
             this.ckb_Ogg.AutoSize = true;
             this.ckb_Ogg.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Ogg.Location = new System.Drawing.Point(97, 302);
+            this.ckb_Ogg.Location = new System.Drawing.Point(74, 139);
             this.ckb_Ogg.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Ogg.Name = "ckb_Ogg";
             this.ckb_Ogg.Size = new System.Drawing.Size(48, 17);
@@ -341,7 +337,7 @@
             // 
             this.ckb_Mp4.AutoSize = true;
             this.ckb_Mp4.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Mp4.Location = new System.Drawing.Point(178, 210);
+            this.ckb_Mp4.Location = new System.Drawing.Point(155, 47);
             this.ckb_Mp4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Mp4.Name = "ckb_Mp4";
             this.ckb_Mp4.Size = new System.Drawing.Size(48, 17);
@@ -353,7 +349,7 @@
             // 
             this.ckb_Avi.AutoSize = true;
             this.ckb_Avi.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Avi.Location = new System.Drawing.Point(178, 233);
+            this.ckb_Avi.Location = new System.Drawing.Point(155, 70);
             this.ckb_Avi.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Avi.Name = "ckb_Avi";
             this.ckb_Avi.Size = new System.Drawing.Size(42, 17);
@@ -365,7 +361,7 @@
             // 
             this.ckb_Mpg.AutoSize = true;
             this.ckb_Mpg.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Mpg.Location = new System.Drawing.Point(178, 256);
+            this.ckb_Mpg.Location = new System.Drawing.Point(155, 93);
             this.ckb_Mpg.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Mpg.Name = "ckb_Mpg";
             this.ckb_Mpg.Size = new System.Drawing.Size(49, 17);
@@ -377,7 +373,7 @@
             // 
             this.ckb_M4v.AutoSize = true;
             this.ckb_M4v.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_M4v.Location = new System.Drawing.Point(178, 279);
+            this.ckb_M4v.Location = new System.Drawing.Point(155, 116);
             this.ckb_M4v.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_M4v.Name = "ckb_M4v";
             this.ckb_M4v.Size = new System.Drawing.Size(49, 17);
@@ -389,7 +385,7 @@
             // 
             this.ckb_Wmv.AutoSize = true;
             this.ckb_Wmv.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Wmv.Location = new System.Drawing.Point(178, 302);
+            this.ckb_Wmv.Location = new System.Drawing.Point(155, 139);
             this.ckb_Wmv.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Wmv.Name = "ckb_Wmv";
             this.ckb_Wmv.Size = new System.Drawing.Size(53, 17);
@@ -401,7 +397,7 @@
             // 
             this.ckb_Csv.AutoSize = true;
             this.ckb_Csv.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Csv.Location = new System.Drawing.Point(261, 210);
+            this.ckb_Csv.Location = new System.Drawing.Point(238, 47);
             this.ckb_Csv.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Csv.Name = "ckb_Csv";
             this.ckb_Csv.Size = new System.Drawing.Size(46, 17);
@@ -413,7 +409,7 @@
             // 
             this.ckb_Txt.AutoSize = true;
             this.ckb_Txt.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Txt.Location = new System.Drawing.Point(261, 233);
+            this.ckb_Txt.Location = new System.Drawing.Point(238, 70);
             this.ckb_Txt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Txt.Name = "ckb_Txt";
             this.ckb_Txt.Size = new System.Drawing.Size(44, 17);
@@ -425,7 +421,7 @@
             // 
             this.ckb_Xls.AutoSize = true;
             this.ckb_Xls.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Xls.Location = new System.Drawing.Point(261, 256);
+            this.ckb_Xls.Location = new System.Drawing.Point(238, 93);
             this.ckb_Xls.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Xls.Name = "ckb_Xls";
             this.ckb_Xls.Size = new System.Drawing.Size(43, 17);
@@ -437,7 +433,7 @@
             // 
             this.ckb_XLSX.AutoSize = true;
             this.ckb_XLSX.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_XLSX.Location = new System.Drawing.Point(261, 279);
+            this.ckb_XLSX.Location = new System.Drawing.Point(238, 116);
             this.ckb_XLSX.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_XLSX.Name = "ckb_XLSX";
             this.ckb_XLSX.Size = new System.Drawing.Size(49, 17);
@@ -449,7 +445,7 @@
             // 
             this.ckb_Xlsm.AutoSize = true;
             this.ckb_Xlsm.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Xlsm.Location = new System.Drawing.Point(261, 302);
+            this.ckb_Xlsm.Location = new System.Drawing.Point(238, 139);
             this.ckb_Xlsm.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Xlsm.Name = "ckb_Xlsm";
             this.ckb_Xlsm.Size = new System.Drawing.Size(53, 17);
@@ -461,7 +457,7 @@
             // 
             this.ckb_Doc.AutoSize = true;
             this.ckb_Doc.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Doc.Location = new System.Drawing.Point(343, 210);
+            this.ckb_Doc.Location = new System.Drawing.Point(320, 47);
             this.ckb_Doc.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Doc.Name = "ckb_Doc";
             this.ckb_Doc.Size = new System.Drawing.Size(49, 17);
@@ -473,7 +469,7 @@
             // 
             this.ckb_Pdf.AutoSize = true;
             this.ckb_Pdf.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Pdf.Location = new System.Drawing.Point(343, 233);
+            this.ckb_Pdf.Location = new System.Drawing.Point(320, 70);
             this.ckb_Pdf.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Pdf.Name = "ckb_Pdf";
             this.ckb_Pdf.Size = new System.Drawing.Size(45, 17);
@@ -485,7 +481,7 @@
             // 
             this.ckb_Ppt.AutoSize = true;
             this.ckb_Ppt.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Ppt.Location = new System.Drawing.Point(343, 256);
+            this.ckb_Ppt.Location = new System.Drawing.Point(320, 93);
             this.ckb_Ppt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Ppt.Name = "ckb_Ppt";
             this.ckb_Ppt.Size = new System.Drawing.Size(44, 17);
@@ -497,7 +493,7 @@
             // 
             this.ckb_Pptx.AutoSize = true;
             this.ckb_Pptx.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Pptx.Location = new System.Drawing.Point(343, 279);
+            this.ckb_Pptx.Location = new System.Drawing.Point(320, 116);
             this.ckb_Pptx.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Pptx.Name = "ckb_Pptx";
             this.ckb_Pptx.Size = new System.Drawing.Size(50, 17);
@@ -509,7 +505,7 @@
             // 
             this.ckb_Odp.AutoSize = true;
             this.ckb_Odp.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Odp.Location = new System.Drawing.Point(343, 302);
+            this.ckb_Odp.Location = new System.Drawing.Point(320, 139);
             this.ckb_Odp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Odp.Name = "ckb_Odp";
             this.ckb_Odp.Size = new System.Drawing.Size(48, 17);
@@ -521,7 +517,7 @@
             // 
             this.ckb_Cs.AutoSize = true;
             this.ckb_Cs.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Cs.Location = new System.Drawing.Point(425, 210);
+            this.ckb_Cs.Location = new System.Drawing.Point(402, 47);
             this.ckb_Cs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Cs.Name = "ckb_Cs";
             this.ckb_Cs.Size = new System.Drawing.Size(39, 17);
@@ -533,7 +529,7 @@
             // 
             this.ckb_C.AutoSize = true;
             this.ckb_C.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_C.Location = new System.Drawing.Point(425, 233);
+            this.ckb_C.Location = new System.Drawing.Point(402, 70);
             this.ckb_C.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_C.Name = "ckb_C";
             this.ckb_C.Size = new System.Drawing.Size(33, 17);
@@ -545,7 +541,7 @@
             // 
             this.ckb_Cpp.AutoSize = true;
             this.ckb_Cpp.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Cpp.Location = new System.Drawing.Point(425, 256);
+            this.ckb_Cpp.Location = new System.Drawing.Point(402, 93);
             this.ckb_Cpp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Cpp.Name = "ckb_Cpp";
             this.ckb_Cpp.Size = new System.Drawing.Size(45, 17);
@@ -557,7 +553,7 @@
             // 
             this.ckb_Php.AutoSize = true;
             this.ckb_Php.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Php.Location = new System.Drawing.Point(425, 279);
+            this.ckb_Php.Location = new System.Drawing.Point(402, 116);
             this.ckb_Php.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Php.Name = "ckb_Php";
             this.ckb_Php.Size = new System.Drawing.Size(46, 17);
@@ -569,7 +565,7 @@
             // 
             this.ckb_Py.AutoSize = true;
             this.ckb_Py.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_Py.Location = new System.Drawing.Point(425, 302);
+            this.ckb_Py.Location = new System.Drawing.Point(402, 139);
             this.ckb_Py.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_Py.Name = "ckb_Py";
             this.ckb_Py.Size = new System.Drawing.Size(38, 17);
@@ -581,7 +577,7 @@
             // 
             this.ckb_All.AutoSize = true;
             this.ckb_All.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_All.Location = new System.Drawing.Point(15, 190);
+            this.ckb_All.Location = new System.Drawing.Point(7, 21);
             this.ckb_All.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ckb_All.Name = "ckb_All";
             this.ckb_All.Size = new System.Drawing.Size(115, 17);
@@ -607,53 +603,157 @@
             // 
             this.lbl_MoveCopy.AutoSize = true;
             this.lbl_MoveCopy.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_MoveCopy.Location = new System.Drawing.Point(236, 135);
+            this.lbl_MoveCopy.Location = new System.Drawing.Point(240, 134);
             this.lbl_MoveCopy.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_MoveCopy.Name = "lbl_MoveCopy";
             this.lbl_MoveCopy.Size = new System.Drawing.Size(68, 13);
             this.lbl_MoveCopy.TabIndex = 46;
             this.lbl_MoveCopy.Text = "Move/Copy:";
-            this.lbl_MoveCopy.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // lst_FoldersNotIncluded
+            // 
+            this.lst_FoldersNotIncluded.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lst_FoldersNotIncluded.FormattingEnabled = true;
+            this.lst_FoldersNotIncluded.Items.AddRange(new object[] {
+            "Date",
+            "Extension"});
+            this.lst_FoldersNotIncluded.Location = new System.Drawing.Point(7, 28);
+            this.lst_FoldersNotIncluded.Name = "lst_FoldersNotIncluded";
+            this.lst_FoldersNotIncluded.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.lst_FoldersNotIncluded.Size = new System.Drawing.Size(120, 56);
+            this.lst_FoldersNotIncluded.TabIndex = 47;
+            // 
+            // gbExtensions
+            // 
+            this.gbExtensions.Controls.Add(this.ckb_All);
+            this.gbExtensions.Controls.Add(this.ckb_Py);
+            this.gbExtensions.Controls.Add(this.ckb_Php);
+            this.gbExtensions.Controls.Add(this.ckb_Cpp);
+            this.gbExtensions.Controls.Add(this.ckb_C);
+            this.gbExtensions.Controls.Add(this.ckb_Cs);
+            this.gbExtensions.Controls.Add(this.ckb_Odp);
+            this.gbExtensions.Controls.Add(this.ckb_Pptx);
+            this.gbExtensions.Controls.Add(this.ckb_Ppt);
+            this.gbExtensions.Controls.Add(this.ckb_Pdf);
+            this.gbExtensions.Controls.Add(this.ckb_Doc);
+            this.gbExtensions.Controls.Add(this.ckb_Xlsm);
+            this.gbExtensions.Controls.Add(this.ckb_XLSX);
+            this.gbExtensions.Controls.Add(this.ckb_Xls);
+            this.gbExtensions.Controls.Add(this.ckb_Txt);
+            this.gbExtensions.Controls.Add(this.ckb_Csv);
+            this.gbExtensions.Controls.Add(this.ckb_Wmv);
+            this.gbExtensions.Controls.Add(this.ckb_M4v);
+            this.gbExtensions.Controls.Add(this.ckb_Mpg);
+            this.gbExtensions.Controls.Add(this.ckb_Avi);
+            this.gbExtensions.Controls.Add(this.ckb_Mp4);
+            this.gbExtensions.Controls.Add(this.ckb_Ogg);
+            this.gbExtensions.Controls.Add(this.ckb_Mpa);
+            this.gbExtensions.Controls.Add(this.ckb_Wav);
+            this.gbExtensions.Controls.Add(this.ckb_Wma);
+            this.gbExtensions.Controls.Add(this.ckb_Mp3);
+            this.gbExtensions.Controls.Add(this.ckb_Raw);
+            this.gbExtensions.Controls.Add(this.ckb_Dng);
+            this.gbExtensions.Controls.Add(this.ckb_BMP);
+            this.gbExtensions.Controls.Add(this.ckb_PNG);
+            this.gbExtensions.Controls.Add(this.ckb_Jpeg);
+            this.gbExtensions.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbExtensions.Location = new System.Drawing.Point(12, 303);
+            this.gbExtensions.Name = "gbExtensions";
+            this.gbExtensions.Size = new System.Drawing.Size(452, 163);
+            this.gbExtensions.TabIndex = 48;
+            this.gbExtensions.TabStop = false;
+            this.gbExtensions.Text = "Extensions To Organize";
+            // 
+            // lst_FoldersIncluded
+            // 
+            this.lst_FoldersIncluded.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lst_FoldersIncluded.FormattingEnabled = true;
+            this.lst_FoldersIncluded.Location = new System.Drawing.Point(176, 28);
+            this.lst_FoldersIncluded.Name = "lst_FoldersIncluded";
+            this.lst_FoldersIncluded.Size = new System.Drawing.Size(120, 56);
+            this.lst_FoldersIncluded.TabIndex = 49;
+            // 
+            // gbFolderOrganization
+            // 
+            this.gbFolderOrganization.Controls.Add(this.ckb_CreateFileOrganizerFolder);
+            this.gbFolderOrganization.Controls.Add(this.btn_DownFolder);
+            this.gbFolderOrganization.Controls.Add(this.btn_UpFolder);
+            this.gbFolderOrganization.Controls.Add(this.btn_RemoveExtension);
+            this.gbFolderOrganization.Controls.Add(this.btn_AddExtension);
+            this.gbFolderOrganization.Controls.Add(this.lst_FoldersIncluded);
+            this.gbFolderOrganization.Controls.Add(this.lst_FoldersNotIncluded);
+            this.gbFolderOrganization.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbFolderOrganization.Location = new System.Drawing.Point(12, 166);
+            this.gbFolderOrganization.Name = "gbFolderOrganization";
+            this.gbFolderOrganization.Size = new System.Drawing.Size(331, 124);
+            this.gbFolderOrganization.TabIndex = 50;
+            this.gbFolderOrganization.TabStop = false;
+            this.gbFolderOrganization.Text = "Folder Organization";
+            // 
+            // ckb_CreateFileOrganizerFolder
+            // 
+            this.ckb_CreateFileOrganizerFolder.AutoSize = true;
+            this.ckb_CreateFileOrganizerFolder.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ckb_CreateFileOrganizerFolder.Location = new System.Drawing.Point(7, 95);
+            this.ckb_CreateFileOrganizerFolder.Name = "ckb_CreateFileOrganizerFolder";
+            this.ckb_CreateFileOrganizerFolder.Size = new System.Drawing.Size(217, 17);
+            this.ckb_CreateFileOrganizerFolder.TabIndex = 51;
+            this.ckb_CreateFileOrganizerFolder.Text = "Create a \'FileOrganizer\' folder before";
+            this.ckb_CreateFileOrganizerFolder.UseVisualStyleBackColor = true;
+            // 
+            // btn_DownFolder
+            // 
+            this.btn_DownFolder.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_DownFolder.Location = new System.Drawing.Point(300, 59);
+            this.btn_DownFolder.Name = "btn_DownFolder";
+            this.btn_DownFolder.Size = new System.Drawing.Size(25, 25);
+            this.btn_DownFolder.TabIndex = 53;
+            this.btn_DownFolder.Text = "˅";
+            this.btn_DownFolder.UseVisualStyleBackColor = true;
+            this.btn_DownFolder.Click += new System.EventHandler(this.btn_DownFolder_Click);
+            // 
+            // btn_UpFolder
+            // 
+            this.btn_UpFolder.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_UpFolder.Location = new System.Drawing.Point(300, 28);
+            this.btn_UpFolder.Name = "btn_UpFolder";
+            this.btn_UpFolder.Size = new System.Drawing.Size(25, 25);
+            this.btn_UpFolder.TabIndex = 52;
+            this.btn_UpFolder.Text = "^\r\n";
+            this.btn_UpFolder.UseVisualStyleBackColor = true;
+            this.btn_UpFolder.Click += new System.EventHandler(this.btn_UpFolder_Click);
+            // 
+            // btn_RemoveExtension
+            // 
+            this.btn_RemoveExtension.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_RemoveExtension.Location = new System.Drawing.Point(135, 61);
+            this.btn_RemoveExtension.Name = "btn_RemoveExtension";
+            this.btn_RemoveExtension.Size = new System.Drawing.Size(33, 23);
+            this.btn_RemoveExtension.TabIndex = 51;
+            this.btn_RemoveExtension.Text = "<<";
+            this.btn_RemoveExtension.UseVisualStyleBackColor = true;
+            this.btn_RemoveExtension.Click += new System.EventHandler(this.btn_RemoveExtension_Click);
+            // 
+            // btn_AddExtension
+            // 
+            this.btn_AddExtension.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_AddExtension.Location = new System.Drawing.Point(135, 28);
+            this.btn_AddExtension.Name = "btn_AddExtension";
+            this.btn_AddExtension.Size = new System.Drawing.Size(33, 23);
+            this.btn_AddExtension.TabIndex = 50;
+            this.btn_AddExtension.Text = ">>";
+            this.btn_AddExtension.UseVisualStyleBackColor = true;
+            this.btn_AddExtension.Click += new System.EventHandler(this.btn_AddExtension_Click);
             // 
             // frm_OrganizeWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 537);
+            this.ClientSize = new System.Drawing.Size(479, 671);
+            this.Controls.Add(this.gbFolderOrganization);
+            this.Controls.Add(this.gbExtensions);
             this.Controls.Add(this.lbl_MoveCopy);
             this.Controls.Add(this.cmb_MoveCopy);
-            this.Controls.Add(this.ckb_All);
-            this.Controls.Add(this.ckb_Py);
-            this.Controls.Add(this.ckb_Php);
-            this.Controls.Add(this.ckb_Cpp);
-            this.Controls.Add(this.ckb_C);
-            this.Controls.Add(this.ckb_Cs);
-            this.Controls.Add(this.ckb_Odp);
-            this.Controls.Add(this.ckb_Pptx);
-            this.Controls.Add(this.ckb_Ppt);
-            this.Controls.Add(this.ckb_Pdf);
-            this.Controls.Add(this.ckb_Doc);
-            this.Controls.Add(this.ckb_Xlsm);
-            this.Controls.Add(this.ckb_XLSX);
-            this.Controls.Add(this.ckb_Xls);
-            this.Controls.Add(this.ckb_Txt);
-            this.Controls.Add(this.ckb_Csv);
-            this.Controls.Add(this.ckb_Wmv);
-            this.Controls.Add(this.ckb_M4v);
-            this.Controls.Add(this.ckb_Mpg);
-            this.Controls.Add(this.ckb_Avi);
-            this.Controls.Add(this.ckb_Mp4);
-            this.Controls.Add(this.ckb_Ogg);
-            this.Controls.Add(this.ckb_Mpa);
-            this.Controls.Add(this.ckb_Wav);
-            this.Controls.Add(this.ckb_Wma);
-            this.Controls.Add(this.ckb_Mp3);
-            this.Controls.Add(this.ckb_Raw);
-            this.Controls.Add(this.ckb_Dng);
-            this.Controls.Add(this.ckb_BMP);
-            this.Controls.Add(this.ckb_PNG);
-            this.Controls.Add(this.ckb_Jpeg);
-            this.Controls.Add(this.lbl_Extensions);
             this.Controls.Add(this.lst_Files);
             this.Controls.Add(this.btn_ListFiles);
             this.Controls.Add(this.ckb_SaveSameOrganize);
@@ -673,6 +773,10 @@
             this.Name = "frm_OrganizeWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "File Organizer";
+            this.gbExtensions.ResumeLayout(false);
+            this.gbExtensions.PerformLayout();
+            this.gbFolderOrganization.ResumeLayout(false);
+            this.gbFolderOrganization.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -691,7 +795,6 @@
         private System.Windows.Forms.CheckBox ckb_SaveSameOrganize;
         private System.Windows.Forms.Button btn_ListFiles;
         private System.Windows.Forms.ListBox lst_Files;
-        private System.Windows.Forms.Label lbl_Extensions;
         private System.Windows.Forms.CheckBox ckb_Jpeg;
         private System.Windows.Forms.CheckBox ckb_PNG;
         private System.Windows.Forms.CheckBox ckb_BMP;
@@ -725,6 +828,15 @@
         private System.Windows.Forms.CheckBox ckb_All;
         private System.Windows.Forms.ComboBox cmb_MoveCopy;
         private System.Windows.Forms.Label lbl_MoveCopy;
+        private System.Windows.Forms.ListBox lst_FoldersNotIncluded;
+        private System.Windows.Forms.GroupBox gbExtensions;
+        private System.Windows.Forms.ListBox lst_FoldersIncluded;
+        private System.Windows.Forms.GroupBox gbFolderOrganization;
+        private System.Windows.Forms.Button btn_AddExtension;
+        private System.Windows.Forms.Button btn_RemoveExtension;
+        private System.Windows.Forms.Button btn_DownFolder;
+        private System.Windows.Forms.Button btn_UpFolder;
+        private System.Windows.Forms.CheckBox ckb_CreateFileOrganizerFolder;
     }
 }
 

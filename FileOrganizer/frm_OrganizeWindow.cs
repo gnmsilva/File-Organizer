@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -89,7 +90,7 @@ namespace FileOrganizer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        private void btn_ListFiles_Click(object sender, EventArgs e)
         {
             //Valida se a pasta de origem está preenchida.
             if (txt_PathIn.Text == string.Empty)
@@ -107,7 +108,7 @@ namespace FileOrganizer
 
             //Valida se ha algum checkbox de extensão selecionado.
             bool validate_Checkboxs = false;
-            foreach (CheckBox c in this.Controls.OfType<CheckBox>())
+            foreach (CheckBox c in gbExtensions.Controls.OfType<CheckBox>())
             {
                 if (c.Checked & c.Name != "ckb_SaveSameOrganize")
                 {
@@ -134,7 +135,7 @@ namespace FileOrganizer
             }
             else
             {
-                foreach (CheckBox ckb in this.Controls.OfType<CheckBox>())
+                foreach (CheckBox ckb in gbExtensions.Controls.OfType<CheckBox>())
                 {
                     if (ckb.Checked & ckb.Name != "ckb_SaveSameOrganize")
                     {
@@ -219,13 +220,21 @@ namespace FileOrganizer
                 return;
             }
 
+            //Valida se foi selecionado alguma opção em Folder Organization
+            if (lst_FoldersIncluded.Items.Count == 0 && !ckb_CreateFileOrganizerFolder.Checked)
+            {
+                MessageBox.Show("Please Select at Least One Option in 'Folder Organization'!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             //Valida se ha algum checkbox de extensão selecionado.
             bool validate_Checkboxs = false;
-            foreach (CheckBox c in this.Controls.OfType<CheckBox>())
+            foreach (CheckBox c in gbExtensions.Controls.OfType<CheckBox>())
             {
-                if (c.Checked & c.Name != "ckb_SaveSameOrganize")
+                if (c.Checked)
                 {
                     validate_Checkboxs = true;
+                    break;
                 }
             }
 
@@ -250,7 +259,7 @@ namespace FileOrganizer
             }
             else
             {
-                foreach (CheckBox ckb in this.Controls.OfType<CheckBox>())
+                foreach (CheckBox ckb in gbExtensions.Controls.OfType<CheckBox>())
                 {
                     if (ckb.Checked & ckb.Name != "ckb_SaveSameOrganize")
                     {
@@ -282,12 +291,12 @@ namespace FileOrganizer
             {
                 if (saveMode == "Move")
                 {
-                    MoveFile(f, txt_PathSave.Text);
+                    MoveFile(f, txt_PathSave.Text, lst_FoldersIncluded, ckb_CreateFileOrganizerFolder);
                 }
 
                 if (saveMode == "Copy")
                 {
-                    CopyFile(f, txt_PathSave.Text);
+                    CopyFile(f, txt_PathSave.Text, lst_FoldersIncluded, ckb_CreateFileOrganizerFolder);
                 }
 
             }
@@ -295,6 +304,26 @@ namespace FileOrganizer
             //Mostra quantos arquivos foram organizados.
             MessageBox.Show("Congratulations!" + "\r\n\r\n" + files.Count() + " file(s) have been organized!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+        }
+
+        /// <summary>
+        /// Altera para cima a posição do item selecionado 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_UpFolder_Click(object sender, EventArgs e)
+        {
+                MoveItem(-1, lst_FoldersIncluded);
+        }
+
+        /// <summary>
+        /// Altera para baixo a posição do item selecionado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_DownFolder_Click(object sender, EventArgs e)
+        {
+                MoveItem(1, lst_FoldersIncluded);
         }
 
         /// <summary>
@@ -309,16 +338,6 @@ namespace FileOrganizer
             return files.ToList();
         }
         
-        /// <summary>
-        /// Obtém as informações de cada arquivo que serão organizados.
-        /// </summary>
-        /// <param name="filePath">Caminho do arquivo</param>
-        /// <returns>FileInfo do arquivo</returns>
-        static FileInfo GetFileInfo(string filePath)
-        {
-            return new FileInfo(@filePath);
-        }
-
         /// <summary>
         /// Obtém a data de criação dos arquivos.
         /// </summary>
@@ -368,10 +387,31 @@ namespace FileOrganizer
         /// </summary>
         /// <param name="filePath">Caminho do arquivo.</param>
         /// <returns>Caminho de acordo com as datas dos arquivos</returns>
-        static string GetFolderPath(string filePath)
+        static string GetFolderPath(string filePath, ListBox foldersIncluded, CheckBox fileOrganizerFolder)
         {
-            DateTime fileInfo = GetDate(filePath);
-            string pathToSave = fileInfo.ToString("yyyy") + "\\" + fileInfo.ToString("yyyy-MM-dd");
+            string pathToSave = string.Empty;
+
+            if (fileOrganizerFolder.Checked)
+            {
+                pathToSave += "FileOrganizer" + "\\";
+            }
+
+            for (int i = 0; i < foldersIncluded.Items.Count; i++)
+            {
+                if (foldersIncluded.Items[i].ToString() == "Date")
+                {
+                    DateTime fileInfo = GetDate(filePath);
+                    pathToSave += fileInfo.ToString("yyyy") + "\\" + fileInfo.ToString("yyyy-MM-dd") + "\\";
+                }
+
+                if (foldersIncluded.Items[i].ToString() == "Extension")
+                {
+                    FileInfo fileInfo = new FileInfo(filePath);
+                    pathToSave += fileInfo.Extension.Replace(".", string.Empty) + "\\";
+                }
+
+            }
+
             return pathToSave;
 
         }
@@ -381,9 +421,9 @@ namespace FileOrganizer
         /// </summary>
         /// <param name="file">Arquivo.</param>
         /// <param name="toSave">Pasta de destino.</param>
-        static void MoveFile(string file, string toSave)
+        static void MoveFile(string file, string toSave, ListBox foldersIncluded, CheckBox fileOrganizerFolder)
         {
-            string pathToSave = toSave + "\\" + GetFolderPath(file);
+            string pathToSave = toSave + "\\" + GetFolderPath(file, foldersIncluded, fileOrganizerFolder);
             bool validatePathExist = System.IO.Directory.Exists(@pathToSave);
 
             //Valida se o caminho não existe.
@@ -394,7 +434,7 @@ namespace FileOrganizer
 
             //Move o arquivo
             FileInfo fileInfo = new FileInfo(@file);
-            System.IO.File.Move(file, pathToSave + "\\" + fileInfo.Name.ToString());
+            System.IO.File.Move(file, pathToSave + fileInfo.Name.ToString());
 
         }
 
@@ -403,9 +443,9 @@ namespace FileOrganizer
         /// </summary>
         /// <param name="file">Arquivo.</param>
         /// <param name="toSave">Pasta de destino</param>
-        static void CopyFile(string file, string toSave)
+        static void CopyFile(string file, string toSave, ListBox foldersIncluded, CheckBox fileOrganizerFolder)
         {
-            string pathToSave = toSave + "\\" + GetFolderPath(file);
+            string pathToSave = toSave + "\\" + GetFolderPath(file, foldersIncluded, fileOrganizerFolder);
             bool validatePathExist = System.IO.Directory.Exists(@pathToSave);
 
             //Valida se o caminho não existe.
@@ -430,7 +470,7 @@ namespace FileOrganizer
         {
             if (ckb_All.Checked)
             {
-                foreach (CheckBox c in this.Controls.OfType<CheckBox>())
+                foreach (CheckBox c in gbExtensions.Controls.OfType<CheckBox>())
                 {
                     if (c.Name != "ckb_All" & c.Name != "ckb_SaveSameOrganize")
                     {
@@ -442,7 +482,7 @@ namespace FileOrganizer
             }
             if (!ckb_All.Checked)
             {
-                foreach (CheckBox c in this.Controls.OfType<CheckBox>())
+                foreach (CheckBox c in gbExtensions.Controls.OfType<CheckBox>())
                 {
                     if (c.Name != "ckb_All" & c.Name != "ckb_SaveSameOrganize")
                     {
@@ -451,6 +491,29 @@ namespace FileOrganizer
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Adiciona o tipo de pasta selecionado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_AddExtension_Click(object sender, EventArgs e)
+        {
+            AddExtensions(lst_FoldersIncluded, lst_FoldersNotIncluded);
+        }
+
+        /// <summary>
+        /// Remove o tipo de pasta selecionado e reordena por ordem alfabética
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_RemoveExtension_Click(object sender, EventArgs e)
+        {
+            RemoveExtensions(lst_FoldersIncluded, lst_FoldersNotIncluded);
+
+            lst_FoldersNotIncluded.Sorted = true;
+
         }
 
         /// <summary>
@@ -476,23 +539,57 @@ namespace FileOrganizer
             return extension;
         }
 
-        private void lbl_Extensions_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Adiciona um item de uma ListBox para outra
+        /// </summary>
+        /// <param name="includedList">ListBox onde o item será incluso</param>
+        /// <param name="notIncludedList">ListBox onde o item está</param>
+        static void AddExtensions(ListBox includedList, ListBox notIncludedList)
         {
-
+            foreach (var item in new ArrayList(notIncludedList.SelectedItems))
+            {
+                notIncludedList.Items.Remove(item);
+                includedList.Items.Add(item);
+            }
         }
 
-        private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
+        /// <summary>
+        /// Remove um item de uma ListBox para outra
+        /// </summary>
+        /// <param name="includedList">ListBox onde o item está</param>
+        /// <param name="notIncludedList">ListBox onde o item será colocado</param>
+        static void RemoveExtensions(ListBox includedList, ListBox notIncludedList)
         {
-
+            foreach (var item in new ArrayList(includedList.SelectedItems))
+            {
+                includedList.Items.Remove(item);
+                notIncludedList.Items.Add(item);    
+            }
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Move um item de acordo com a direção informada dentro de uma ListBox
+        /// </summary>
+        /// <param name="direction">Se será acrescetado ou reduzido o index do item</param>
+        public void MoveItem(int direction, ListBox folderIncluded)
         {
+            if (folderIncluded.SelectedItem == null || folderIncluded.SelectedIndex < 0)
+            {
+                return;
+            }
 
-        }
+            int newIndex = folderIncluded.SelectedIndex + direction;
 
-        private void lbl_PathIn_Click(object sender, EventArgs e)
-        {
+            if (newIndex < 0 || newIndex >= folderIncluded.Items.Count)
+            {
+                return;
+            }
+
+            object selected = folderIncluded.SelectedItem;
+
+            folderIncluded.Items.Remove(selected);
+            folderIncluded.Items.Insert(newIndex, selected);
+            folderIncluded.SetSelected(newIndex, true);
 
         }
     }    
